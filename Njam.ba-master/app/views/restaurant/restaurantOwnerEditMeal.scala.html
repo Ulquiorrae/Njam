@@ -1,0 +1,89 @@
+@(meal: Meal)(email: String)
+
+
+@main(email) {
+
+<body>
+
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Jumbotron Header -->
+        <header class="jumbotron hero-spacer" style="height: 400px">
+            <h2>Edit @meal.name </h2>
+            
+            <div class="col-md-6 column">
+            <form class="form-horizontal" role="form" action="@routes.RestaurantController.editMeal(meal.id)" method = "POST">
+                <div class="form-group">
+                     <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="name" name="name" value="@meal.name" minlength="4" maxlength="30" title="Maximum 30 chars" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                     <label for="inputEmail3" class="col-sm-2 control-label">Price</label>
+                    <div class="col-sm-10">
+                        <input type="number" step="any" min="1" max="100" maxlength="10"  class="form-control" id="number" name="price" value="@meal.price" title="Please use format with dot: 2.20" required >
+                       @if(flash.get("successMeal")){
+							<div class="alert alert-success" role="alert">
+							<div class="container">
+								@flash.get("successMeal")
+							</div>
+							</div>
+							}
+                    </div>
+                </div>
+                                         
+                        <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                         <button type="submit" class="btn btn-default">Update Meal</button>  <a class="btn btn-danger pull-right" href="/fileUpload/@meal.id" role="button">Modify Images</a>
+                         
+                    </div>
+                    <div>
+                      
+                    
+                    </div>
+                </div>
+            </form>
+        </div>
+        </header>
+
+        <!-- Title -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel-heading" style="background-color:#535453;color:#fff;">Meals</div>
+                
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Page Features -->
+                <!-- Page Features -->
+
+                <!-- /.row -->
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Your Website 2014</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery --> 
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+	
+	
+}

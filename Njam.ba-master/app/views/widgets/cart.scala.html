@@ -1,0 +1,111 @@
+@(email: String)(cartitems: List[orders.CartItem])(total: Double)(minOrder: Double)
+@main(email) {
+
+<body>
+
+<section id="cart_items">
+		<div class="container">
+			<div class="breadcrumbs">
+							
+				<ol class="breadcrumb">
+				  <li><a href="#">Home</a></li>
+				  <li class="active">Shopping Cart</li>
+				</ol>
+			</div>
+			<div class="table-responsive cart_info">
+				<table class="table table-condensed">
+					<thead>
+						<tr class="cart_menu">
+							<td class="image">Restaurant Meal</td>
+							<td class="description"> </td>
+							<td class="price">Price</td>
+							<td class="quantity">Quantity</td>
+							<td class="total">Total</td>
+							<td class="total">Delete</td>
+							
+							<td></td>
+						</tr>
+					</thead>
+										@for(cartitem <- cartitems){
+					
+					<tbody>
+						<tr>
+							<td class="cart_product">
+								<a href=""><img src="http://placehold.it/100x70" alt=""></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="">@cartitem.meal.name</a></h4>
+								<p>Web ID: @cartitem.meal.id</p>
+							</td>
+							<td class="cart_price">
+								<p>@cartitem.meal.price KM</p>
+							</td>
+						<div class="form-group">
+						<form method="POST" action="@routes.CartController.bindQuantity(cartitem.meal.id)">
+							<td class="cart_quantity">
+								<div class="cart_quantity_button">
+									<a class="cart_quantity_up" <form method="POST" href="@routes.CartController.addMealToBasket(cartitem.meal.id)"> + </a>
+									<input class="cart_quantity_input" method="POST" type="text" id="quantity" name="quantity" value="@cartitem.quantity" autocomplete="off" size="2">
+									<a class="cart_quantity_down" href="@routes.CartController.removeFromCart(cartitem.meal.id)"> - </a>
+								</div>
+							</form>					
+								
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">@cartitem.totalPrice KM</p>
+							</td>
+								<td class="cart_delete">
+								<a class="cart_quantity_delete" href="@routes.CartController.removeAllFromCart(cartitem.meal.id)"><i class="fa fa-times"></i></a>
+							</td>
+					</tbody>
+					}
+					<tr>
+							<td colspan="4">&nbsp;</td>
+							<td colspan="2">
+								<table class="table table-condensed total-result">
+									<tr>
+										<td>Total</td>
+										<td><span>@total KM</span></td>
+									</tr>
+									<tr class="shipping-cost">
+										<td>Shipping Cost</td>
+										<td>Free</td>			
+									
+									</tr>
+									<tr>
+									<td>
+									@if(minOrder <= total) {
+									<form method="POST" action="@routes.PaypalController.purchaseProcessing">
+	                        			<input type="image" <img src="//www.paypalobjects.com/en_US/i/btn/btn_xpressCheckout.gif" alt="Check out with PayPal" value="approve"/>
+	                        		</form>
+	                        		</div>
+								} else {
+									<h5 class="text-right text-danger"><strong><span>Total for your order is less than minimal order.</span></strong></h5>
+									@if(minOrder > 0){
+										<h5 class="text-left "><strong>Minimal order: @minOrder KM</strong></h5>
+										}
+						</div>
+									</div>
+								}			
+								</td>
+									<td>
+								
+										</td>
+								</tr>
+								
+								</table>
+							</td>
+						</tr>
+				</table>
+					@if(flash.get("SucessAdded") || flash.get("Warning") ){
+			           <div class="alert alert-success" role="alert">
+			            @flash.get("SucessAdded")
+			            @flash.get("Warning")
+			      }
+			</div>
+		</div>
+	</section> <!--/#cart_items-->
+
+</body>
+
+}

@@ -1,0 +1,85 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET    /                                    controllers.Application.index()
+GET    /registration                        controllers.Application.toRegistration()
+POST   /                                    controllers.Application.registration()
+POST   /registrationRestaurant              controllers.Application.registrationRestaurant()
+GET    /registrationRestaurant              controllers.Application.toRegistrationRestaurant()
+
+POST   /contact                             controllers.ContactController.sendMail()
+GET    /contact                             controllers.ContactController.contacts()
+
+GET    /admin/:email                        controllers.SudoController.administrator(email: String)
+POST   /admin/delete/:id                    controllers.SudoController.deleteRestaurant(id: Int)
+POST   /admin/approve/:id                   controllers.SudoController.approveRestaurant(id:  Int)
+
+GET    /fileUpload/:id                      controllers.Application.showFileUpload(id: Int)
+POST   /fileUpload/Meal/:id                 controllers.FileUpload.saveMealIMG(id: Int)
+POST   /fileUpload/Restaurant/              controllers.FileUpload.saveRestaurantIMG()
+GET    /fileUpload/deleteimg/:image/:meal   controllers.FileUpload.deleteImg(image: String,meal: Int)
+
+
+GET    /restaurantOwner/:email              controllers.RestaurantController.restaurant(email: String)
+GET    /restaurantOwnerEditProfile/:email   controllers.RestaurantController.editRestaurantURL(email: String)
+POST   /restaurantOwnerEditProfile/:email   controllers.RestaurantController.editRestaurant(email: String)
+POST   /restaurantOwner/                    controllers.RestaurantController.createMeal()
+POST   /restaurantOwner/delete/:id          controllers.RestaurantController.deleteMeal(id: Int)
+
+
+GET    /restaurantOwner/editmeal/:id        controllers.RestaurantController.editMealURL(id: Int)
+POST   /restaurantOwner/editmeal/:id        controllers.RestaurantController.editMeal(id: Int)
+
+GET    /restaurantProfile/:name             controllers.Application.toRestaurant(name: String)
+GET    /login                               controllers.Application.toLogin()
+POST   /login                               controllers.Application.login()
+GET    /user/:email                         controllers.Application.toUser(email: String)
+POST   /user/:email                         controllers.Application.editUser(email: String)
+GET    /logout                              controllers.Application.logout()
+GET    /confirm/:confirmationString         controllers.Validate.validateEmail(confirmationString: String)
+
+
+GET    /faqPage                             controllers.Application.showFaq()
+POST   /admin/faq                           controllers.FaqController.create()
+POST   /admin/faq/delete/:id                controllers.FaqController.delete(id: Int)
+
+
+GET    /search                              controllers.SearchController.searchByGeneric(q: String,typeGen: String)
+GET    /search/toAdvancedSearch            controllers.SearchController.redirect()
+POST   /search/advancedSearch              controllers.SearchController.advancedSearch()
+
+
+GET    /faqEdit/:id                         controllers.FaqController.showEditFaq(id: Int)
+POST   /faqEdit/:id                         controllers.FaqController.editFaq(id: Int)
+
+GET    /cart                                controllers.CartController.showCart()
+GET   /cart/delete                             controllers.CartController.removeFromCart(id: Int)
+GET   /cart/delete/all                           controllers.CartController.removeAllFromCart(id: Int)
+POST   /cart/bind                                controllers.CartController.bindQuantity(id: Int)
+GET    /mealView/:id                        controllers.CartController.viewMeal(id: Int)
+POST   /mealView/:id                        controllers.CartController.addMealToBasket(id: Int)
+
+
+GET    /creditStatus                        controllers.PaypalController.showPurchase()
+POST   /creditpurchase                      controllers.PaypalController.purchaseProcessing()
+GET    /creditsuccess                       controllers.PaypalController.creditSuccess()
+GET    /creditfail                          controllers.PaypalController.creditFail()
+
+POST   /userSearch                          controllers.SearchController.ajaxList()
+GET    /userSearch                          controllers.SearchController.ajaxSearch()
+
+# API service practice
+GET    /api/users                               controllers.api.UserList.users()
+POST    /api/user                                controllers.api.UserList.oneUser()
+GET    /api/meals                               controllers.api.MealList.meals()
+POST    /api/meal                                controllers.api.MealList.oneMeal()
+GET    /api/restaurants                         controllers.api.RestaurantList.restaurants()
+POST    /api/restaurant                          controllers.api.RestaurantList.oneRestaurant()
+POST    /api/loginJson                           controllers.api.loginService.loginToJson()
+
+# Map static resources from the /public folder to the /assets URL path
+GET    /assets/*file                        controllers.Assets.at(path="/public", file)
+
+GET    /webjars/*file                       controllers.WebJarAssets.at(file)

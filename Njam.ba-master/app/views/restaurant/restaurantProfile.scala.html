@@ -1,0 +1,87 @@
+@(email: String)(name: String)(minOrder: Double)(meals: List[Meal])
+
+@main(email) {
+
+<body>
+
+   
+
+    <!-- Page Content -->
+    <div class="container">
+
+		<!-- Header -->
+
+		<header class="masthead">
+			<div class="container">
+				<div class="row">
+					<div class="page-header">
+						<h1> @name <small>Restaurant</small></h1>
+						@if(minOrder > 0) {
+							<h4 class="text-right"><small>Minimal order for this restaurant is @minOrder KM.</small></h4>
+						}
+					</div>
+				</div>
+			</div>
+
+		</header>
+
+        <!-- Title -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel-heading" style="background-color:#535453;color:#fff;">Meals</div>
+                
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Page Features -->
+        @for(meal<-meals){
+        	
+
+            <div class="col-md-3 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                     @if(meal.image.iterator().hasNext()!=true){
+                	 <img src="http://placehold.it/800x500" alt="">
+                }else{                
+                    <img src="@routes.Assets.at(meal.image.iterator().next().imgLocation.toString())" alt="">}
+                    <div class="caption">
+                        <h3>@meal.name</h3>
+                          <p>Lorem ipsum dolor sit amet, consectetur ng elit.</p>
+                         
+                        <p>@meal.price KM</p>
+                        <p>
+                            <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+                        </p>
+                         
+                    </div>
+                </div>
+            </div>
+       
+        	
+        }
+                <!-- /.row -->
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Your Website 2014</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery --> 
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+	
+	
+}
